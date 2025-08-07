@@ -46,14 +46,15 @@
                                     alt="" />
                             </button>
                         </div>
-
-
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform" <x-nav-link
-                            href="/" :current="request()->is('/')">Home</x-nav-link>
-                            <x-nav-link href="/blog" :current="request()->is('blog')">Blogs</x-nav-link>
-                            <x-nav-link href="/kontakt" :current="request()->is('kontakt')">Kontakt</x-nav-link>
-                            <x-nav-link href="/project" :current="request()->is('project')">projects</x-nav-link>
-                            <x-nav-link href="/about" :current="request()->is('about')">about</x-nav-link>
+                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform">
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                                Profile</a>
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
+                                out</a>
                         </div>
                     </div>
                 </div>
