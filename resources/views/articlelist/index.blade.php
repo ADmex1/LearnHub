@@ -1,3 +1,3 @@
 <x-layout :title=$title>
-    <p>LearnHub</p>
+    <x-post.content :posts=$posts />
 </x-layout>

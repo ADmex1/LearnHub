@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// });
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
 });
@@ -67,16 +67,12 @@ Route::get('/:3', function () {
 });
 
 
-Route::get('/', function () {
-    $posts = Post::latest()->filter(request(['search', 'category', 'author']))
-        ->paginate(10)
-        ->withQueryString();
+Route::get('/penis', function () {
+    return view('articlelist.index');
+})->middleware(['auth', 'verified'])->name('profile');
 
-    return view('home', [
-        'title' => 'Home Page',
-        'posts' => $posts
-    ]);
-})->middleware(['auth', 'verified'])->name('/');
+Route::get('/penis/{post:slug}', [PostDashboardController::class, 'show'])->middleware(['auth', 'verified']);
+
 Route::get('/penis', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

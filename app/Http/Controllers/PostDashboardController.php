@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class PostDashboardController extends Controller
@@ -13,16 +14,17 @@ class PostDashboardController extends Controller
      */
     public function index()
     {
-        return view('home', ['title' => 'Home Page', 'posts' => Post::latest()->paginate(7)]);
+        $posts = Post::latest()->where('author_id', Auth::user()->id)->paginate(5);
+        if (request('keyword')) {
+            $posts->where('title', 'like', '%' . request('keyword') . '%');
+        }
+        return view('articlelist.index', ['title' => 'Your Article'], ['posts' => $posts]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -35,9 +37,9 @@ class PostDashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        return view('articlelist.show', ['post' => $post]);
     }
 
     /**

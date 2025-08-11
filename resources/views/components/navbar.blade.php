@@ -70,6 +70,8 @@
                                 class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                                 <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
                                     Profile</a>
+                                <a href="/penis" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
+                                    Articles</a>
                                 <a href="/dashboard"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
                                 <form method="POST" action="/logout">
@@ -139,6 +141,9 @@
                     <a href="/profile"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
                         Profile</a>
+                    <a href="/penis"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                        Articles</a>
                     <a href="/dashboard"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
                     <form method="POST" action="/logout">
