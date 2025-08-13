@@ -11,7 +11,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <x-my-nav-link href="/" :current="request()->is('/')">Home</x-my-nav-link>
-                        <x-my-nav-link href="/posts" :current="request()->is('posts')">Articles</x-my-nav-link>
+                        <x-my-nav-link href="/posts" :current="request()->is('posts')">Community Blogs</x-my-nav-link>
                         <x-my-nav-link href="/books" :current="request()->is('books')">Books</x-my-nav-link>
                         <x-my-nav-link href="/project" :current="request()->is('project')">Projects</x-my-nav-link>
                         <x-my-nav-link href="/about" :current="request()->is('about')">About</x-my-nav-link>
@@ -70,8 +70,8 @@
                                 class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                                 <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
                                     Profile</a>
-                                <a href="/penis" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
-                                    Articles</a>
+                                <a href="/my-blog" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
+                                    blogs</a>
                                 <a href="/dashboard"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
                                 <form method="POST" action="/logout">
@@ -121,7 +121,7 @@
         x-transition:leave-end="opacity-0 scale-95" class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
             <x-nav-link href="/" :current="request()->is('/')">Home</x-nav-link>
-            <x-nav-link href="/posts" :current="request()->is('posts')">Articles</x-nav-link>
+            <x-nav-link href="/posts" :current="request()->is('posts')">blogs</x-nav-link>
             <x-nav-link href="/kontakt" :current="request()->is('kontakt')">Kontakt</x-nav-link>
             <x-nav-link href="/project" :current="request()->is('project')">Projects</x-nav-link>
             <x-nav-link href="/about" :current="request()->is('about')">About</x-nav-link>
@@ -141,9 +141,9 @@
                     <a href="/profile"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
                         Profile</a>
-                    <a href="/penis"
+                    <a href="/my-blog"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                        Articles</a>
+                        blogs</a>
                     <a href="/dashboard"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
                     <form method="POST" action="/logout">

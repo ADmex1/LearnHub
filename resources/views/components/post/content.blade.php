@@ -1,11 +1,11 @@
 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
-    <h2 class="text-xl font-semibold pl-4 mb-3">Posted BY: {{ Auth::user()->username }}</h2>
-    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+    <div class="mx-auto max-w-screen-xl px-4 ">
+        <h2 class="text-xl font-semibold pl-4 mb-3">Posted BY: {{ Auth::user()->username }}</h2>
+        <div class="bg-white dark:bg-gray-800 relative border-md sm:rounded-lg ">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
                     <form class="flex items-center"action="" method="GET">
-                        <label for="simple-search" class="sr-only">Search Article</label>
+                        <label for="simple-search" class="sr-only">Search blog</label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -23,16 +23,16 @@
                 </div>
                 <div
                     class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <button type="button" id="createProductModalButton" data-modal-target="createProductModal"
-                        data-modal-toggle="createProductModal"
+                    <a href="/my-blog/create" data-modal-target="createProductModal1a"
+                        data-modal-toggle="createProductModal1"
                         class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
                                 d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                         </svg>
-                        Add product
-                    </button>
+                        Add blog
+                    </a>
                 </div>
             </div>
             <div class="overflow-x-auto">
@@ -88,7 +88,7 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a href="/penis/{{ $post->slug }}"
+                                                <a href="/my-blog/{{ $post->slug }}"
                                                     data-modal-target="readProductModal1"
                                                     data-modal-toggle="readProductModal1"
                                                     class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
@@ -98,7 +98,7 @@
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" />
                                                     </svg>
-                                                    Show Article Preview
+                                                    Show blog Preview
                                                 </a>
                                             </li>
                                             <li>
@@ -207,7 +207,6 @@
         </div>
     </div>
 </div>
-<!-- Update modal -->
 <div id="updateProductModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">

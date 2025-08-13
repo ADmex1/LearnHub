@@ -1,7 +1,7 @@
 <x-layout :title=$title>
 
     {{-- @foreach ($posts as $post)
-        <article class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 border-gray-300">
+        <blog class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 border-gray-300">
             <a href="/posts/{{ $post['slug'] }}">
                 <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['title'] }}</h2>
             </a>
@@ -17,7 +17,7 @@
                 <br>
                 <a href="/posts" class="font-medium text-blue-600">&laquo; Back</a>
             </div>
-        </article>
+        </blog>
     @endforeach --}}
 
 
@@ -43,7 +43,7 @@
                 </div>
                 <input type="search" id="default-search"
                     class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Article Title..." autofocus autocomplete="off" name="search" />
+                    placeholder="blog Title..." autofocus autocomplete="off" name="search" />
                 <button type="submit"
                     class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
@@ -51,7 +51,7 @@
 
         <div class="grid mt-4 gap-8 lg:grid-cols-3 md:grid-cols-2 s:grid-cols-1">
             @forelse ($posts as $post)
-                <article
+                <blog
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
                         <a href="/posts?category={{ $post->category->slug }}">
@@ -89,10 +89,10 @@
                             </svg>
                         </a>
                     </div>
-                </article>
+                </blog>
             @empty
                 <div>
-                    <p class="font-semibold text-xl my-4">Article Not Found!</p>
+                    <p class="font-semibold text-xl my-4">Blog Not Found!</p>
                     <a href="/posts" class="block text-blue-500 hover:underline">&laquo; Back</a>
                 </div>
             @endforelse

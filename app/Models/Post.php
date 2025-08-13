@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Post extends Model
 {
     use HasFactory;
+
     protected $with = ['author', 'category'];
     protected $fillable = [
         'title',
         'slug',
-        'author',
+        'author_id',
+        'category_id',
         'content'
     ];
     public function author(): BelongsTo

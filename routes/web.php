@@ -23,7 +23,7 @@ Route::get('/posts', function () {
     $posts = Post::with(['author', 'category'])->latest();
     $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(10)->withQueryString();
     return view('posts', [
-        'title' => 'Articles',
+        'title' => 'The Community Blogs',
         'posts' => $posts,
     ]);
 });
@@ -40,7 +40,7 @@ Route::get('/authors/{user:username}', function (User $user) {
     $posts = $user->posts()->with(['author', 'category'])->latest()->get();
 
     return view('posts', [
-        'title' => count($posts) . ' Article(s) by ' . $user->username,
+        'title' => count($posts) . ' blog(s) by ' . $user->username,
         'posts' => $posts
     ]);
 });
@@ -55,7 +55,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 });
 
 Route::get('/books', function () {
-    return view('books', ['title' => 'books']);
+    return view('books', ['title' => 'Uploaded Books by the Community']);
 });
 
 Route::get('/project', function () {
@@ -67,13 +67,16 @@ Route::get('/:3', function () {
 });
 
 
-Route::get('/penis', function () {
-    return view('articlelist.index');
+Route::get('/my-blog', function () {
+    return view('bloglist.index');
 })->middleware(['auth', 'verified'])->name('profile');
+Route::get('/my-blog/create', [PostDashboardController::class, 'create'])->middleware(['auth', 'verified']);
+Route::post('/my-blog/', [PostDashboardController::class, 'store'])->middleware(['auth', 'verified']);
 
-Route::get('/penis/{post:slug}', [PostDashboardController::class, 'show'])->middleware(['auth', 'verified']);
+Route::get('/my-blog/{post:slug}', [PostDashboardController::class, 'show'])->middleware(['auth', 'verified']);
 
-Route::get('/penis', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/my-blog', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

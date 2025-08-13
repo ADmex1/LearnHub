@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -18,20 +19,29 @@ class PostDashboardController extends Controller
         if (request('keyword')) {
             $posts->where('title', 'like', '%' . request('keyword') . '%');
         }
-        return view('articlelist.index', ['title' => 'Your Article'], ['posts' => $posts]);
+        return view('bloglist.index', ['title' => 'Your blog'], ['posts' => $posts]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    public function create()
+    {
+        echo view('bloglist.create');
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+
+        Post::create([
+            'title' => $request->title,
+            'author_id' => Auth::user()->id,
+            'category_id' => $request->category_id,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content
+        ], 201);
+        return redirect('/my-blog');
     }
 
     /**
@@ -39,7 +49,7 @@ class PostDashboardController extends Controller
      */
     public function show(Post $post)
     {
-        return view('articlelist.show', ['post' => $post]);
+        return view('bloglist.show', ['post' => $post]);
     }
 
     /**
