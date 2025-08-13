@@ -19,7 +19,7 @@ class PostDashboardController extends Controller
         if (request('keyword')) {
             $posts->where('title', 'like', '%' . request('keyword') . '%');
         }
-        return view('bloglist.index', ['title' => 'Your blog'], ['posts' => $posts]);
+        return view('bloglist.index', ['title' => 'Your Posts'], ['posts' => $posts]);
     }
 
     /**
@@ -33,7 +33,11 @@ class PostDashboardController extends Controller
 
     public function store(Request $request)
     {
-
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'content' => 'required'
+        ]);
         Post::create([
             'title' => $request->title,
             'author_id' => Auth::user()->id,

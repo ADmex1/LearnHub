@@ -71,7 +71,7 @@
                                 <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
                                     Profile</a>
                                 <a href="/my-blog" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
-                                    blogs</a>
+                                    Posts</a>
                                 <a href="/dashboard"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
                                 <form method="POST" action="/logout">
