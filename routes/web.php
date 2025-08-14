@@ -67,16 +67,18 @@ Route::get('/:3', function () {
 });
 
 
-Route::get('/my-blog', function () {
-    return view('bloglist.index');
-})->middleware(['auth', 'verified'])->name('profile');
-Route::get('/my-blog/create', [PostDashboardController::class, 'create'])->middleware(['auth', 'verified']);
-Route::post('/my-blog/', [PostDashboardController::class, 'store'])->middleware(['auth', 'verified']);
-
-Route::get('/my-blog/{post:slug}', [PostDashboardController::class, 'show'])->middleware(['auth', 'verified']);
 
 
-Route::get('/my-blog', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/my-blog', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/my-blog/create', [PostDashboardController::class, 'create']);
+    Route::delete('/my-blog/{post:slug}', [PostDashboardController::class, 'destroy']);
+    Route::post('/my-blog/{post:slug}', [PostDashboardController::class, 'store']);
+    Route::get('/my-blog/{post:slug}/edit', [PostDashboardController::class, 'edit']);
+    Route::patch('/my-blog/{post:slug}', [PostDashboardController::class, 'update']);
+    Route::get('/my-blog/{post:slug}', [PostDashboardController::class, 'show']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
