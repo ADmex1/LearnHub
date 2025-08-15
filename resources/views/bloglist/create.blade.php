@@ -9,3 +9,6 @@
         </div>
     </div>
 </x-app-layout>
+{{-- <x-layout :title=$title>
+    <x-post.create />
+</x-layout> --}}

@@ -70,8 +70,8 @@
                         <div class="flex items-center space-x-4">
                             <a href="/posts?author={{ $post->author->username }}">
                                 <img class="w-7 h-7 rounded-full"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                                    alt="{{ $post->author->username }}" />
+                                    src="{{ $post->author->avatar ? asset('storage/' . $post->author->avatar) : asset('img/default-avatar.jpg') }}"
+                                    alt="{{ $post->author->username }} " />
 
                                 <span class="font-medium text-xs dark:text-white">
                                     {{ $post->author->name }}
