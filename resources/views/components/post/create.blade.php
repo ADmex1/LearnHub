@@ -38,7 +38,7 @@
                 class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Category</label><select
                 name="category_id" id="category"
                 class=" mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                <option selected="">Select Category</option>
+                <option selected=" " disabled selected>Select Category</option>
                 @foreach (App\Models\category::get() as $category)
                     <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ $category->name }}</option>
                 @endforeach

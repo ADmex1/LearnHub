@@ -70,13 +70,17 @@ Route::get('/:3', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/my-blog', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/my-blog', [PostDashboardController::class, 'index'])->name('dashboard');
+    //Create
     Route::get('/my-blog/create', [PostDashboardController::class, 'create']);
-    Route::delete('/my-blog/{post:slug}', [PostDashboardController::class, 'destroy']);
-    Route::post('/my-blog/{post:slug}', [PostDashboardController::class, 'store']);
+    Route::post('/my-blog', [PostDashboardController::class, 'store']);
+    //read single
+    Route::get('/my-blog/{post:slug}', [PostDashboardController::class, 'show']);
+    //update
     Route::get('/my-blog/{post:slug}/edit', [PostDashboardController::class, 'edit']);
     Route::patch('/my-blog/{post:slug}', [PostDashboardController::class, 'update']);
-    Route::get('/my-blog/{post:slug}', [PostDashboardController::class, 'show']);
+    //edit
+    Route::delete('/my-blog/{post:slug}', [PostDashboardController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {

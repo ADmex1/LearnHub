@@ -28,7 +28,7 @@ class PostDashboardController extends Controller
      */
     public function create()
     {
-        echo view('bloglist.create');
+        echo view('bloglist.create', ['title' => 'Your Posts']);
     }
 
 
