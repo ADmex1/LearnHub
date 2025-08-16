@@ -54,7 +54,7 @@ class PostDashboardController extends Controller
      */
     public function show(Post $post)
     {
-        return view('bloglist.show', ['post' => $post]);
+        return view('bloglist.show', ['title' => $post->title, 'post' => $post]);
     }
 
     /**
