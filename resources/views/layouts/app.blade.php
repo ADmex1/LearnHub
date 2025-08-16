@@ -13,8 +13,11 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- CSS Stack --}}
+    @stack('style')
 </head>
 
 <body class="font-sans antialiased">
@@ -35,6 +38,8 @@
             {{ $slot }}
         </main>
     </div>
+    {{-- JS Stacks --}}
+    @stack('script')
 </body>
 
 </html>
