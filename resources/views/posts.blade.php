@@ -92,8 +92,7 @@
                 </blog>
             @empty
                 <div>
-                    <p class="font-semibold text-xl my-4">Post Not Found!</p>
-                    <a href="/posts" class="block text-blue-500 hover:underline">&laquo; Back</a>
+                    <p class="font-semibold text-xl my-4">There are no post made yet...</p>
                 </div>
             @endforelse
         </div>
