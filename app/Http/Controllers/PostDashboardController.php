@@ -62,7 +62,7 @@ class PostDashboardController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('bloglist.edit', ['post' => $post]);
+        return view('bloglist.edit', ['title' =>  '', 'post' => $post]);
     }
 
     /**
