@@ -49,12 +49,12 @@
             <p class="text-sm text-gray-500 dark:text-gray-400">&copy; {{ date('Y') }} {{ config('app.name') }}. All
                 rights reserved.</p>
 
-            <!-- Dark mode toggle -->
+            {{-- <!-- Dark mode toggle -->
             <button @click="darkMode = !darkMode"
                 class="px-3 py-1 rounded-lg border dark:border-gray-600 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-                <span x-show="!darkMode">🌙 Dark</span>
-                <span x-show="darkMode">☀️ Light</span>
-            </button>
+                <span x-show="!darkMode"> Dark</span>
+                <span x-show="darkMode"> Light</span>
+            </button> --}}
         </div>
     </footer>
 
