@@ -4,9 +4,9 @@
             <!-- Left: Logo + Desktop Nav -->
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <img class="size-8"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/State_arms_of_the_German_Democratic_Republic.svg/640px-State_arms_of_the_German_Democratic_Republic.svg.png"
-                        alt="Your Company" />
+                    <a href="/" class="text-xl font-bold text-primary-600 dark:text-primary-400">
+                        {{ config('app.name', 'Laravel User') }}
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
