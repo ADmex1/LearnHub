@@ -38,5 +38,10 @@ class CategorySeeder extends Seeder
             'slug' => 'computer-network',
             'color' => 'bg-blue-300'
         ]);
+        Category::create([
+            'name' => 'General',
+            'slug' => 'general-stuffs',
+            'color' => 'bg-purple-300'
+        ]);
     }
 }

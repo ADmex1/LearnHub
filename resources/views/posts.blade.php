@@ -51,7 +51,7 @@
 
         <div class="grid mt-4 gap-8 lg:grid-cols-3 md:grid-cols-2 s:grid-cols-1">
             @forelse ($posts as $post)
-                <blog
+                <article
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
                         <a href="/posts?category={{ $post->category->slug }}">
@@ -64,8 +64,8 @@
                     </div>
                     <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
                             href="/posts/{{ $post['slug'] }}">{{ $post->title }}</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-                        {{ Str::limit($post['content'], 30) }}</p>
+                    <div class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                        {!! Str::limit($post['content'], 30) !!}</div>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-4">
                             <a href="/posts?author={{ $post->author->username }}">
@@ -89,7 +89,7 @@
                             </svg>
                         </a>
                     </div>
-                </blog>
+                </article>
             @empty
                 <div>
                     <p class="font-semibold text-xl my-4">There are no post made yet...</p>

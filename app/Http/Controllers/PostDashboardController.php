@@ -34,11 +34,17 @@ class PostDashboardController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|unique:posts',
-            'category_id' => 'required',
-            'content' => 'required'
-        ]);
+        $request->validate(
+            [
+                'title' => 'required|unique:posts',
+                'category_id' => 'required',
+                'content' => 'required|min:30'
+            ],
+            [
+                'content.required' => ':Blank content are not allowed!',
+                'content.min' => 'Content has to be atleast :min words'
+            ]
+        );
         Post::create([
             'title' => $request->title,
             'author_id' => Auth::user()->id,
