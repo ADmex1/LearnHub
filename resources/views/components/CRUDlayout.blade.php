@@ -36,11 +36,11 @@
             <div class="flex items-center gap-4">
                 <a href="/my-blog" class="hover:text-primary-600 dark:hover:text-primary-400">My Blog</a>
                 <a href="/profile" class="hover:text-primary-600 dark:hover:text-primary-400">Profile</a>
-                <button @click="darkMode = !darkMode"
+                {{-- <button @click="darkMode = !darkMode"
                     class="p-2 rounded-lg border dark:border-gray-600 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                     <span x-show="!darkMode">🌙</span>
                     <span x-show="darkMode">☀️</span>
-                </button>
+                </button> --}}
             </div>
         </div>
     </nav>

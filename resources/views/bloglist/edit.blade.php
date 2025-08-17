@@ -10,6 +10,6 @@
     </div>
 </x-app-layout> --}}
 
-<x-layout :title=$title>
+<x-CRUDlayout>
     <x-post.edit :post=$post />
-</x-layout>
+</x-CRUDlayout>

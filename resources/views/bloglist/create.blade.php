@@ -13,6 +13,6 @@
 {{-- <x-layout :title=$title>
     <x-post.create />
 </x-layout> --}}
-<x-userlayout>
+<x-CRUDlayout>
     <x-post.create />
-</x-userlayout>
+</x-CRUDlayout>
