@@ -1,166 +1,106 @@
-<nav class="bg-gray-800" x-data="{ mobileOpen: false, profileOpen: false }">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
-            <!-- Left: Logo + Desktop Nav -->
-            <div class="flex items-center">
-                <div class="shrink-0">
-                    <a href="/" class="text-xl font-bold text-primary-600 dark:text-primary-400">
-                        {{ config('app.name', 'Laravel User') }}
-                    </a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <x-my-nav-link href="/" :current="request()->is('/')">Home</x-my-nav-link>
-                        <x-my-nav-link href="/posts" :current="request()->is('posts')">Community Blogs</x-my-nav-link>
-                        <x-my-nav-link href="/books" :current="request()->is('books')">Books</x-my-nav-link>
-                        <x-my-nav-link href="/project" :current="request()->is('project')">Projects</x-my-nav-link>
-                        <x-my-nav-link href="/about" :current="request()->is('about')">About</x-my-nav-link>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Desktop User Menu -->
-            <div class="hidden md:block">
-                <div class="ml-4 flex items-center md:ml-6">
-                    <!-- Notifications -->
-                    <button type="button"
-                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">View notifications</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0
-                                6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0
-                                0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                        </svg>
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="relative ml-3">
-                        @if (Auth::check())
-                            <button type="button" @click="profileOpen = !profileOpen"
-                                class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800"
-                                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <span class="absolute -inset-1.5 cursor-pointer"></span>
-                                <span class="sr-only">Open user menu</span>
-                                <img class="size-8 rounded-full"
-                                    src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
-                                    alt="{{ Auth::user()->avatar }} " />
-                                <div class="text-gray-300 text-sm font-medium ml-3">
-                                    {{ Auth::user()->username }}
-                                </div>
-                                <div class="ms-1 text-gray-300">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-
-                            <!-- Dropdown Menu -->
-                            <div x-show="profileOpen" @click.away="profileOpen = false"
-                                x-transition:enter="transition ease-out duration-100 transform"
-                                x-transition:enter-start="opacity-0 scale-95"
-                                x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-75 transform"
-                                x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-95"
-                                class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
-                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
-                                    Profile</a>
-                                <a href="/my-blog" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your
-                                    Posts</a>
-                                <a href="/dashboard"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <button type="submit"
-                                        class="cursor-pointer w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Log out
-                                    </button>
-                                </form>
-                            </div>
-                        @else
-                            <a href="/login" class="text-white text-sm font-medium">Login</a>
-                            <span class="text-white text-sm">|</span>
-                            <a href="/register" class="text-white text-sm font-medium">Register</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile menu button -->
-            <div class="flex md:hidden">
-                <button type="button" @click="mobileOpen = !mobileOpen"
-                    class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-                    aria-controls="mobile-menu" :aria-expanded="mobileOpen">
-                    <span class="absolute -inset-0.5"></span>
-                    <span class="sr-only">Open main menu</span>
-                    <!-- Hamburger icon -->
-                    <svg :class="{ 'hidden': mobileOpen, 'block': !mobileOpen }" class="size-6" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                    <!-- Close icon -->
-                    <svg :class="{ 'block': mobileOpen, 'hidden': !mobileOpen }" class="size-6" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+<nav class="bg-gray-900 text-white px-8 py-4 flex items-center justify-between shadow-md" x-data="{ mobileOpen: false, profileOpen: false }">
+    <a href="/" class="text-2xl font-bold tracking-wide">
+        {{ config('app.name', 'MySite') }}
+    </a>
+    <div class="hidden md:flex space-x-6">
+        <x-my-nav-link href="/" :current="request()->is('/')" class="text-white hover:text-cyan-400">Home</x-my-nav-link>
+        <x-my-nav-link href="/posts" :current="request()->is('posts')" class="text-white hover:text-cyan-400">Community
+            Blogs</x-my-nav-link>
+        <x-my-nav-link href="/books" :current="request()->is('books')" class="text-white hover:text-cyan-400">Books</x-my-nav-link>
+        <x-my-nav-link href="/project" :current="request()->is('project')" class="text-white hover:text-cyan-400">Projects</x-my-nav-link>
+        <x-my-nav-link href="/about" :current="request()->is('about')" class="text-white hover:text-cyan-400">About</x-my-nav-link>
+    </div>
+    <div class="hidden md:flex items-center space-x-4">
+        @auth
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="flex items-center space-x-2 text-white hover:text-cyan-400">
+                    <img class="size-8 rounded-full"
+                        src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
+                        alt="{{ Auth::user()->avatar }} " />
+                    <span>{{ Auth::user()->name }}</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Mobile menu -->
-    <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-100 transform"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" class="md:hidden" id="mobile-menu">
-        <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            <x-nav-link href="/" :current="request()->is('/')">Home</x-nav-link>
-            <x-nav-link href="/posts" :current="request()->is('posts')">blogs</x-nav-link>
-            <x-nav-link href="/kontakt" :current="request()->is('kontakt')">Kontakt</x-nav-link>
-            <x-nav-link href="/project" :current="request()->is('project')">Projects</x-nav-link>
-            <x-nav-link href="/about" :current="request()->is('about')">About</x-nav-link>
-        </div>
-        <div class="border-t border-gray-700 pt-4 pb-3">
-            @if (Auth::check())
-                <div class="flex items-center px-5">
-                    <div class="shrink-0">
-                        <img class="size-10 rounded-full"
-                            src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
-                            alt="{{ Auth::user()->name }}" />
-                    </div>
-                    <div class="text-gray-300 text-sm font-medium ml-3">
-                        {{ Auth::user()->username }}
-                    </div>
-                </div>
-                <div class="mt-3 space-y-1 px-2">
-                    <a href="/profile"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                        Profile</a>
-                    <a href="/my-blog"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                        blogs</a>
-                    <a href="/dashboard"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-                    <form method="POST" action="/logout">
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg">
+                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit"
-                            class="w-full text-start block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                        <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
                             Logout
                         </button>
                     </form>
                 </div>
-            @else
-                <div class="my-3 space-y-1 px-2">
-                    <a href="/login" class="block text-white text-sm font-medium">Login</a>
-                    <a href="/register" class="block text-white text-sm font-medium">Register</a>
+            </div>
+        @else
+            <a href="{{ route('login') }}" class="text-white hover:text-cyan-400">Login</a>
+            <div>|</div>
+            <a href="{{ route('register') }}" class="text-white hover:text-cyan-400">Register</a>
+        @endauth
+    </div>
+    <button class="md:hidden text-white focus:outline-none" @click="mobileOpen = !mobileOpen">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+    <div class="md:hidden" x-show="mobileOpen" x-transition>
+        <div class="px-4 pt-4 pb-6 space-y-2 bg-gray-900 rounded-lg shadow-lg">
+            <x-my-nav-link href="/" :current="request()->is('/')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">Home</x-my-nav-link>
+
+            <x-my-nav-link href="/posts" :current="request()->is('posts')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">Community Blogs</x-my-nav-link>
+
+            <x-my-nav-link href="/books" :current="request()->is('books')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">Books</x-my-nav-link>
+
+            <x-my-nav-link href="/project" :current="request()->is('project')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">Projects</x-my-nav-link>
+
+            <x-my-nav-link href="/about" :current="request()->is('about')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">About</x-my-nav-link>
+
+            <hr class="border-gray-700">
+
+            @auth
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center space-x-3 px-3 py-2 rounded-md bg-gray-800 hover:bg-gray-700 text-gray-200">
+                        <img class="w-8 h-8 rounded-full border border-gray-600"
+                            src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
+                            alt="{{ Auth::user()->avatar }}" />
+                        <span class="font-medium">{{ Auth::user()->name }}</span>
+                        <svg :class="{ 'rotate-180': open }" class="w-4 h-4 ml-auto transform transition-transform"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="open" @click.away="open = false" x-transition
+                        class="mt-2 w-full bg-white rounded-md shadow-md text-gray-800">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            @endif
+            @else
+                <div class="flex items-center justify-between space-x-3 px-3">
+                    <a href="{{ route('login') }}"
+                        class="flex-1 text-center px-4 py-2 rounded-md bg-cyan-600 text-white hover:bg-cyan-500">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="flex-1 text-center px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-600">
+                        Register
+                    </a>
+                </div>
+            @endauth
         </div>
     </div>
+
 </nav>
