@@ -9,7 +9,51 @@
             <a href="/posts" class="font-medium text-blue-600">&laquo; Back</a>
         </div>
     </blog> --}}
+    @push('style')
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+        <style>
+            .ql-ui {
+                display: none !important;
+            }
 
+            pre {
+                position: relative;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
+            pre code {
+                font-size: 0.875rem;
+                display: block;
+            }
+
+            .lang-tag {
+                position: absolute;
+                top: 8px;
+                right: 60px;
+                background: #2563eb;
+                color: #fff;
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                text-transform: uppercase;
+            }
+
+            .copy-btn {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: #374151;
+                color: #fff;
+                border: none;
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+    @endpush
     <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
         <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
 
@@ -47,4 +91,48 @@
             </blog>
         </div>
     </main>
+
+    @push('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Convert Quill code blocks into <pre><code>
+                document.querySelectorAll(".post-content .ql-code-block").forEach((el) => {
+                    let lang = el.getAttribute("data-language") || "plaintext";
+                    let code = document.createElement("code");
+                    code.className = "language-" + lang;
+                    code.textContent = el.innerText;
+
+                    let pre = document.createElement("pre");
+                    pre.appendChild(code);
+
+                    // add language tag
+                    let tag = document.createElement("span");
+                    tag.className = "lang-tag";
+                    tag.textContent = lang;
+
+                    // add copy button
+                    let btn = document.createElement("button");
+                    btn.className = "copy-btn";
+                    btn.textContent = "Copy";
+                    btn.onclick = () => {
+                        navigator.clipboard.writeText(el.innerText);
+                        btn.textContent = "Copied!";
+                        setTimeout(() => btn.textContent = "Copy", 1500);
+                    };
+
+                    pre.appendChild(tag);
+                    pre.appendChild(btn);
+
+                    el.replaceWith(pre);
+                });
+
+                // Apply highlight.js
+                document.querySelectorAll("pre code").forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            });
+        </script>
+    @endpush
+
 </x-layout>
