@@ -1,6 +1,8 @@
 <!-- Modal content -->
 @push('style')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
 @endpush
 <div class="max-auto relative p-4 bg-white rounded-lg border dark:bg-gray-800 sm:p-5">
     <!-- Modal header -->
@@ -55,6 +57,7 @@
                 placeholder="Write the content here"> {{ old('content') }}</textarea>
             <div id="editor"></div>
         </div>
+
         <div class="flex gap-2">
             <button type="submit"
                 class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -81,10 +84,67 @@
     </form>
 </div>
 @push('script')
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
+        const toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote', 'code-block'],
+            ['link', 'image', 'video', 'formula'],
+
+            [{
+                'header': 1
+            }, {
+                'header': 2
+            }], // custom button values
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }, {
+                'list': 'check'
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }], // superscript/subscript
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }], // outdent/indent
+            [{
+                'direction': 'rtl'
+            }], // text direction
+
+            [{
+                'size': ['small', false, 'large', 'huge']
+            }], // custom dropdown
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+
+            [{
+                'color': []
+            }, {
+                'background': []
+            }], // dropdown with defaults from theme
+            [{
+                'font': []
+            }],
+            [{
+                'align': []
+            }],
+
+            ['clean'] // remove formatting button
+        ];
         const quill = new Quill('#editor', {
             theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            },
             placeholder: 'Write the content here'
         });
         const postForm = document.querySelector('#post-form');
@@ -98,6 +158,95 @@
             //console.log(content);
             postContent.value = content;
 
+            this.submit();
+        });
+    </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <script>
+        // Highlight.js init
+        hljs.configure({
+            languages: ['javascript', 'php', 'html', 'css'] // add whatever you need
+        });
+
+        const toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote', 'code-block'],
+            ['link', 'image', 'video', 'formula'],
+
+            [{
+                'header': 1
+            }, {
+                'header': 2
+            }],
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }, {
+                'list': 'check'
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }],
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }],
+            [{
+                'direction': 'rtl'
+            }],
+
+            [{
+                'size': ['small', false, 'large', 'huge']
+            }],
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+
+            [{
+                'color': []
+            }, {
+                'background': []
+            }],
+            [{
+                'font': []
+            }],
+            [{
+                'align': []
+            }],
+
+            ['clean']
+        ];
+
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions,
+                syntax: true // ✅ enable syntax highlighting
+            },
+            placeholder: 'Write the content here'
+        });
+
+        const postForm = document.querySelector('#post-form');
+        const postContent = document.querySelector('#content');
+        const quillEditor = document.querySelector('#editor');
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+        postForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const content = quillEditor.children[0].innerHTML;
+            postContent.value = content;
             this.submit();
         });
     </script>

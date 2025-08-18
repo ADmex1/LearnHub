@@ -1,64 +1,194 @@
- <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
-     <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+{{-- @push('style')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+@endpush
 
-         <blog
-             class="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
-             <a href="/my-blog" class="font-medium text-xs text-blue-500 hover:underline">&laquo; Return to blog
-                 page</a>
-             <header class="mb-4 lg:mb-6 not-format">
-                 <address class="flex items-center mb-6 not-italic">
-                     <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                         <img class="mr-4 w-16 h-16 rounded-full"
-                             src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
-                             alt="{{ $post->author->name }} ">
-                         <div>
-                             <a href="/posts?author={{ $post->author->username }} " rel="author "
-                                 class="text-xl font-bold text-gray-900 dark:text-white">{{ $post->author->name }}
-                             </a>
-                             <a href="/posts?category={{ $post->category->slug }}" class="block">
-                                 <span
-                                     class="{{ $post->category->color }} text-grey-600 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                                     {{ $post->category->name }}
-                                 </span>
-                             </a>
-                             <p class="text-base text-gray-500 dark:text-gray-400">
-                                 {{ $post->created_at->diffforHumans() }}</time></p>
-                         </div>
-                     </div>
-                 </address>
-                 <div class="flex justify-start items-center gap-x-4">
-                     <div class="flex items-center space-x-3 sm:space-x-4">
-                         <a href="/my-blog/{{ $post->slug }}/edit"
-                             class="inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-900">
-                             <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path
-                                     d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                 <path fill-rule="evenodd"
-                                     d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                     clip-rule="evenodd" />
-                             </svg>
-                             Edit
-                         </a>
-                     </div>
-                     <button type="button" data-modal-target="deleteModal-{{ $post->id }}"
-                         data-modal-toggle="deleteModal-{{ $post->id }}"
-                         class="inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                         <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                             <path fill-rule="evenodd"
-                                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                 clip-rule="evenodd" />
-                         </svg>
-                         Delete
-                     </button>
-                 </div>
-                 <h1
-                     class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                     {{ $post['title'] }}</h1>
-             </header>
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
+    <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
+        <article
+            class="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+            <a href="/my-blog" class="font-medium text-xs text-blue-500 hover:underline">&laquo; Return to blog page</a>
 
-             <div>{!! $post['content'] !!}</div>
-         </blog>
-     </div>
- </main>
+            <header class="mb-4 lg:mb-6 not-format">
+                <address class="flex items-center mb-6 not-italic">
+                    <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                        <img class="mr-4 w-16 h-16 rounded-full"
+                            src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.jpg') }}"
+                            alt="{{ $post->author->name }}">
+                        <div>
+                            <a href="/posts?author={{ $post->author->username }}" rel="author"
+                                class="text-xl font-bold text-gray-900 dark:text-white">{{ $post->author->name }}</a>
+                            <a href="/posts?category={{ $post->category->slug }}" class="block">
+                                <span
+                                    class="{{ $post->category->color }} text-grey-600 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                                    {{ $post->category->name }}
+                                </span>
+                            </a>
+                            <p class="text-base text-gray-500 dark:text-gray-400">
+                                {{ $post->created_at->diffforHumans() }}
+                            </p>
+                        </div>
+                    </div>
+                </address>
+
+                <div class="flex justify-start items-center gap-x-4">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <a href="/my-blog/{{ $post->slug }}/edit"
+                            class="inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-900">
+                            <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                <path fill-rule="evenodd"
+                                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Edit
+                        </a>
+                    </div>
+                    <button type="button" data-modal-target="deleteModal-{{ $post->id }}"
+                        data-modal-toggle="deleteModal-{{ $post->id }}"
+                        class="inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Delete
+                    </button>
+                </div>
+
+                <h1
+                    class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+                    {{ $post['title'] }}
+                </h1>
+            </header>
+
+            <div class="post-content">{!! $post->content !!}</div>
+        </article>
+    </div>
+</main>
+
+@push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+
+    <script>
+        // Configure highlight.js
+        hljs.configure({
+            languages: ['javascript', 'php', 'html', 'css', 'cpp', 'python', 'java']
+        });
+
+        // Apply highlighting to all code blocks on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all code blocks in the post content
+            document.querySelectorAll('.post-content pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+@endpush --}}
+@push('style')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <style>
+        .ql-ui {
+            display: none !important;
+        }
+
+        pre {
+            position: relative;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-size: 0.875rem;
+            display: block;
+        }
+
+        .lang-tag {
+            position: absolute;
+            top: 8px;
+            right: 60px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #374151;
+            color: #fff;
+            border: none;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+@endpush
+
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
+    <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
+        <article
+            class="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+
+            {{-- ... author info, edit, delete, title ... --}}
+
+            {{-- Blog Content --}}
+            <div class="post-content">{!! $post->content !!}</div>
+        </article>
+    </div>
+</main>
+
+@push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Convert Quill code blocks into <pre><code>
+            document.querySelectorAll(".post-content .ql-code-block").forEach((el) => {
+                let lang = el.getAttribute("data-language") || "plaintext";
+                let code = document.createElement("code");
+                code.className = "language-" + lang;
+                code.textContent = el.innerText;
+
+                let pre = document.createElement("pre");
+                pre.appendChild(code);
+
+                // add language tag
+                let tag = document.createElement("span");
+                tag.className = "lang-tag";
+                tag.textContent = lang;
+
+                // add copy button
+                let btn = document.createElement("button");
+                btn.className = "copy-btn";
+                btn.textContent = "Copy";
+                btn.onclick = () => {
+                    navigator.clipboard.writeText(el.innerText);
+                    btn.textContent = "Copied!";
+                    setTimeout(() => btn.textContent = "Copy", 1500);
+                };
+
+                pre.appendChild(tag);
+                pre.appendChild(btn);
+
+                el.replaceWith(pre);
+            });
+
+            // Apply highlight.js
+            document.querySelectorAll("pre code").forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+@endpush
