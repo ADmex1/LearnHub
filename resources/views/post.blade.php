@@ -87,7 +87,7 @@
                         {{ $post['title'] }}</h1>
                 </header>
 
-                <div>{!! $post['content'] !!}</div>
+                <div class="post-content">{!! $post->content !!}</div>
             </blog>
         </div>
     </main>
