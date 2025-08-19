@@ -148,15 +148,12 @@
         const postForm = document.querySelector('#post-form');
         const postContent = document.querySelector('#content');
 
-        // Load old content into Quill
         quill.root.innerHTML = postContent.value;
 
-        // Highlight code blocks
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
         });
 
-        // Sync Quill content to textarea on submit
         postForm.addEventListener('submit', function(e) {
             e.preventDefault();
             postContent.value = quill.root.innerHTML;
