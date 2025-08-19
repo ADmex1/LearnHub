@@ -26,6 +26,7 @@
                 <div x-show="open" @click.away="open = false"
                     class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg">
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                    <a href="/my-blog" class="block px-4 py-2 hover:bg-gray-100">Your Posts</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
@@ -62,6 +63,7 @@
             <x-my-nav-link href="/about" :current="request()->is('about')"
                 class="block text-gray-200 hover:text-cyan-400 font-medium">About</x-my-nav-link>
 
+
             <hr class="border-gray-700">
 
             @auth
@@ -80,6 +82,7 @@
                     <div x-show="open" @click.away="open = false" x-transition
                         class="mt-2 w-full bg-white rounded-md shadow-md text-gray-800">
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                        <a href="/my-blog" class="block px-4 py-2 hover:bg-gray-100">Your Posts</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">

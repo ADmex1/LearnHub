@@ -38,19 +38,30 @@ class PostDashboardController extends Controller
             [
                 'title' => 'required|unique:posts',
                 'category_id' => 'required',
-                'content' => 'required|min:30'
+                'content' => 'required|min:30',
+                'postimage' => 'nullable|image|mimes:jpg,jpeg,webp,png|max:6144'
             ]
         );
+        $path = null;
+        if ($request->hasFile('postimage')) {
+            $path =  $request->file('postimage')->store('post', 'public');
+        }
         Post::create([
             'title' => $request->title,
             'author_id' => Auth::user()->id,
             'category_id' => $request->category_id,
             'slug' => Str::slug($request->title),
-            'content' => $request->content
-        ], 201);
+            'content' => $request->content,
+            'postimage' => $path
+        ]);
         return redirect('/my-blog');
     }
 
+
+    // public function upload(Request $request)
+    // {
+    //     //
+    // }
     /**
      * Display the specified resource.
      */

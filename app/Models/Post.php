@@ -20,7 +20,8 @@ class Post extends Model
         'slug',
         'author_id',
         'category_id',
-        'content'
+        'content',
+        'postimage'
     ];
     public function author(): BelongsTo
     {
