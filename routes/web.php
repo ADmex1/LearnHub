@@ -12,7 +12,7 @@ use App\Http\Controllers\ProfileController;
 //     return view('dashboard');
 // });
 Route::get('/', function () {
-    return view('home', ['title' => 'Home Page']);
+    return view('home', ['title' => 'Welcome to Community Hub']);
 });
 
 Route::get('/about', function () {

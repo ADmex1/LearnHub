@@ -15,7 +15,6 @@
 <body class="h-full">
     <div class="min-h-full">
         <x-navbar />
-        <x-header :title=$title />
         {{ $slot }}
     </div>
 

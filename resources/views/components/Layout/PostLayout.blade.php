@@ -32,7 +32,7 @@
         <!-- Footer -->
         <footer class="bg-gray-200 text-gray-700 py-6 mt-auto">
             <div class="container mx-auto text-center text-sm">
-                &copy; {{ date('Y') }} LearnHub Beta. All rights reserved.
+                &copy; {{ date('Y') }} {{ config('app.name', 'MySite') }} Beta. All rights reserved.
             </div>
         </footer>
     </div>
