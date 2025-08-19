@@ -30,7 +30,7 @@
         </main>
 
         <!-- Footer -->
-        <footer class="bg-gray-200 text-gray-700 py-6 mt-auto">
+        <footer class="bg-gray-900 text-white px-8 py-4 flex items-center justify-between shadow-md">
             <div class="container mx-auto text-center text-sm">
                 &copy; {{ date('Y') }} {{ config('app.name', 'MySite') }} Beta. All rights reserved.
             </div>
