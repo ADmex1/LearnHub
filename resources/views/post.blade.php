@@ -1,4 +1,4 @@
-<x-Layout.PostLayout :title=$title>
+<x-Layout.PostLayout>
     {{-- <blog class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['title'] }}</h2>
         <div class="text-base text-gray-500">
@@ -18,39 +18,58 @@
 
             pre {
                 position: relative;
-                border-radius: 0.5rem;
+                background-color: #f6f8fa;
+                /* light mode background */
+                color: #24292f;
+                /* text color */
                 padding: 1rem;
+                border-radius: 6px;
                 overflow-x: auto;
+                font-family: 'Fira Code', monospace;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                border: 1px solid #d0d7de;
+                box-shadow: none;
+                /* remove any shadow */
+            }
+
+            .dark pre {
+                background-color: #0d1117;
+                /* dark mode */
+                color: #c9d1d9;
+                border: 1px solid #30363d;
+                box-shadow: none;
+                /* remove any shadow */
             }
 
             pre code {
-                font-size: 0.875rem;
                 display: block;
-            }
-
-            .lang-tag {
-                position: absolute;
-                top: 8px;
-                right: 60px;
-                background: #2563eb;
-                color: #fff;
-                font-size: 0.75rem;
-                padding: 0.25rem 0.5rem;
-                border-radius: 4px;
-                text-transform: uppercase;
+                white-space: pre;
             }
 
             .copy-btn {
                 position: absolute;
-                top: 8px;
-                right: 8px;
-                background: #374151;
-                color: #fff;
-                border: none;
+                top: 0.25rem;
+                right: 0.25rem;
+                background: #fafbfc;
+                color: #24292f;
+                border: 1px solid #d0d7de;
                 font-size: 0.75rem;
                 padding: 0.25rem 0.5rem;
-                border-radius: 4px;
+                border-radius: 6px;
                 cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+
+            .dark .copy-btn {
+                background: #21262d;
+                color: #c9d1d9;
+                border: 1px solid #30363d;
+            }
+
+            pre:hover .copy-btn {
+                opacity: 1;
             }
         </style>
     @endpush
@@ -78,7 +97,7 @@
                                     </span>
                                 </a>
                                 <p class="text-base text-gray-500 dark:text-gray-400">
-                                    {{ $post->created_at->diffforHumans() }}</time></p>
+                                    {{ $post->created_at->diffForHumans() }}</time></p>
                             </div>
                         </div>
                     </address>
@@ -106,12 +125,10 @@
                     let pre = document.createElement("pre");
                     pre.appendChild(code);
 
-                    // add language tag
                     let tag = document.createElement("span");
                     tag.className = "lang-tag";
                     tag.textContent = lang;
 
-                    // add copy button
                     let btn = document.createElement("button");
                     btn.className = "copy-btn";
                     btn.textContent = "Copy";
@@ -127,7 +144,6 @@
                     el.replaceWith(pre);
                 });
 
-                // Apply highlight.js
                 document.querySelectorAll("pre code").forEach((block) => {
                     hljs.highlightElement(block);
                 });
@@ -135,4 +151,38 @@
         </script>
     @endpush
 
+    @push('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".post-content .ql-code-block").forEach((el) => {
+                    let lang = el.getAttribute("data-language") || "plaintext";
+
+                    let code = document.createElement("code");
+                    code.className = "language-" + lang;
+                    code.textContent = el.innerText;
+
+                    let pre = document.createElement("pre");
+                    pre.appendChild(code);
+
+                    let btn = document.createElement("button");
+                    btn.className = "copy-btn";
+                    btn.textContent = "Copy";
+                    btn.onclick = () => {
+                        navigator.clipboard.writeText(code.textContent);
+                        btn.textContent = "Copied!";
+                        setTimeout(() => btn.textContent = "Copy", 1500);
+                    };
+
+                    pre.appendChild(btn);
+
+                    el.replaceWith(pre);
+                });
+
+                document.querySelectorAll("pre code").forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            });
+        </script>
+    @endpush
     </x-layout>
