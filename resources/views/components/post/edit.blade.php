@@ -29,7 +29,7 @@
             </div>
         </div>
     @endif
-    <form action="/my-blog/{{ $post->slug }}" method="POST">
+    <form action="/my-blog/{{ $post->slug }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="mb-4">
@@ -49,10 +49,11 @@
             </select></div>
         <div class="  sm:col-span-2 mb-4">
             <label for="content" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">content</label>
+            <p>Note: You had to edit the entire thing here</p>
             <textarea id="content" name="content" rows="4"
-                class=" hidden mb-4 block p-2.5 w-full text-sm text-gray-900  rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Write the content here"> {{ old('content') ?? $post->content }}</textarea>
-            <div id="editor">{!! old('content') ?? $post->content !!}</div>
+                class="  mb-4 block p-2.5 w-full text-sm text-gray-900  rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Write the content here"> {{ old('content') ?? $post->content }} </textarea>
+            <div class="h-64" id="editor">{!! old('content') ?? $post->content !!}</div>
         </div>
         <div class="flex gap-2">
             <button type="submit"
@@ -242,7 +243,7 @@
             theme: 'snow',
             modules: {
                 toolbar: toolbarOptions,
-                syntax: true // ✅ enable syntax highlighting
+                syntax: true
             },
             placeholder: 'Write the content here'
         });

@@ -87,33 +87,24 @@ class PostDashboardController extends Controller
         $request->validate([
             'title' => 'required|unique:posts,title,' . $post->id,
             'category_id' => 'required',
-            'content' => 'required',
-            'postimage' => 'nullable|image|mimes:jpg,jpeg,webp,png|max:6144'
+            'content' => 'required'
         ]);
 
-        $data = [
-            'title' => $request['title'],
+        $post->update([
+            'title' => $request->title,
             'author_id' => Auth::user()->id,
-            'category_id' => $request['category_id'],
-            'slug' => Str::slug($request['title']),
-            'content' => $request['content'],
-        ];
-        // $post->update([
-        //     'title' => $request->title,
-        //     'author_id' => Auth::user()->id,
-        //     'category_id' => $request->category_id,
-        //     'slug' => Str::slug($request->title),
-        //     'content' => $request->content,
-        // ]);
-        if ($request->hasFile('postimage')) {
-            if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
-                Storage::disk('public')->delete($post->postimage);
-            }
+            'category_id' => $request->category_id,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+        ]);
+        // if ($request->hasFile('postimage')) {
+        //     if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
+        //         Storage::disk('public')->delete($post->postimage);
+        //     }
 
-            $data['postimage'] = $request->file('postimage')->store('post', 'public');
-        }
-
-        $post->update($data);
+        //     $data['postimage'] = $request->file('postimage')->store('post', 'public');
+        // }
+        // $post->update($data);
 
 
         return redirect('/my-blog')->with(['{*}' => 'Your post has been Updated!']);

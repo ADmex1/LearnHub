@@ -31,7 +31,7 @@
         @endif
 
         <!-- Modal body -->
-        <form action="/my-blog" method="POST" id="post-form">
+        <form action="/my-blog" method="POST" id="post-form" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
