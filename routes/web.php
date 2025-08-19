@@ -21,7 +21,7 @@ Route::get('/about', function () {
 
 Route::get('/posts', function () {
     $posts = Post::with(['author', 'category'])->latest();
-    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(9)->withQueryString();
+    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
     return view('posts', [
         'title' => 'The Community Blogs',
         'posts' => $posts,
