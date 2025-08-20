@@ -12,7 +12,9 @@ use App\Http\Controllers\ProfileController;
 //     return view('dashboard');
 // });
 Route::get('/', function () {
-    return view('home', ['title' => 'Welcome to Community Hub']);
+    $posts = Post::with(['author', 'category'])->latest();
+    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
+    return view('home', ['title' => 'Welcome to Community Hub',  'posts' => $posts,]);
 });
 
 Route::get('/about', function () {
