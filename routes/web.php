@@ -81,8 +81,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //update
     Route::get('/my-blog/{post:slug}/edit', [PostDashboardController::class, 'edit']);
     Route::patch('/my-blog/{post:slug}', [PostDashboardController::class, 'update']);
-    //edit
+    //Delete
     Route::delete('/my-blog/{post:slug}', [PostDashboardController::class, 'destroy']);
+    Route::post('/postimage', [PostDashboardController::class, 'postimage']);
 });
 
 Route::middleware('auth')->group(function () {

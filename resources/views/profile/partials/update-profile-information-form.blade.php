@@ -61,7 +61,6 @@
             @endif
         </div>
         {{-- Profile Image --}}
-
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-800 dark:text-white" for="avatar">Upload
                 Image</label>
@@ -109,6 +108,9 @@
         }
         input.addEventListener("change", previewPhoto);
     </script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>

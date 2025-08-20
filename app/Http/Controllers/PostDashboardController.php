@@ -97,19 +97,24 @@ class PostDashboardController extends Controller
             'slug' => Str::slug($request->title),
             'content' => $request->content,
         ]);
-        // if ($request->hasFile('postimage')) {
-        //     if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
-        //         Storage::disk('public')->delete($post->postimage);
-        //     }
+        if ($request->hasFile('postimage')) {
+            if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
+                Storage::disk('public')->delete($post->postimage);
+            }
+            $data['postimage'] = $request->file('postimage')->store('post', 'public');
+        }
+        $post->update($data);
 
-        //     $data['postimage'] = $request->file('postimage')->store('post', 'public');
-        // }
-        // $post->update($data);
-
-
-        return redirect('/my-blog')->with(['{*}' => 'Your post has been Updated!']);
+        return redirect('/my-blog')->with(['{success}' => 'Your post has been Updated!']);
     }
 
+    public function postimage(Request $request)
+    {
+        if ($request->hasFile('postimage')) {
+            $path =  $request->file('postimage')->store('post', 'public');
+        }
+        return $path;
+    }
     /**
      * Remove the specified resource from storage.
      */

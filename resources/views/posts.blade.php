@@ -91,7 +91,7 @@
                     </div>
                 </article> --}}
                 <article
-                    class="group p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+                    class="group p-6 bg-white   border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-4">
                         <a href="/posts?category={{ $post->category->slug }}">
                             <span
