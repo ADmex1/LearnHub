@@ -14,7 +14,7 @@ class BookController extends Controller
     /** List user's books */
     public function index(Request $request)
     {
-        $books = Book::where('author_id', Auth::id())->latest();
+        $books = Book::where('author_id', Auth::id())->with('category')->latest();
 
         if ($request->has('keyword')) {
             $books->where('title', 'like', '%' . $request->keyword . '%');
@@ -83,7 +83,7 @@ class BookController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'category_id' => 'required|integer',
-            'file' => 'nullable|file|mimes:pdf,epub,txt|max:10240'
+            'file' => 'required|file|mimes:pdf,epub,txt|max:102400'
         ]);
 
         $data = $request->only(['title', 'description', 'category_id']);
