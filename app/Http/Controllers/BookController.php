@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
+    /** List user's books */
     public function index(Request $request)
     {
-        $books = Book::where('author_id', Auth::id())
-            ->latest();
+        $books = Book::where('author_id', Auth::id())->latest();
 
         if ($request->has('keyword')) {
             $books->where('title', 'like', '%' . $request->keyword . '%');
@@ -47,13 +46,11 @@ class BookController extends Controller
             'file' => 'required|file|mimes:pdf,epub,txt|max:10240'
         ]);
 
-        // Handle file upload
+        $filePath = null;
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('books', $filename, 'public'); // stored in storage/app/public/books
-        } else {
-            $filePath = null;
+            $filePath = $file->storeAs('books', $filename, 'public');
         }
 
         Book::create([
@@ -84,21 +81,18 @@ class BookController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => Str::slug($request->title),
             'description' => 'required',
             'category_id' => 'required|integer',
             'file' => 'nullable|file|mimes:pdf,epub,txt|max:10240'
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['title', 'description', 'category_id']);
+        $data['slug'] = Str::slug($request->title);
 
-        // Handle file upload if new file is provided
         if ($request->hasFile('file')) {
-            // Delete old file if exists
             if ($book->file_path && Storage::disk('public')->exists($book->file_path)) {
-                \Storage::disk('public')->delete($book->file_path);
+                Storage::disk('public')->delete($book->file_path);
             }
-
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('books', $filename, 'public');
@@ -113,6 +107,10 @@ class BookController extends Controller
     /** Delete book */
     public function destroy(Book $book)
     {
+        if ($book->file_path && Storage::disk('public')->exists($book->file_path)) {
+            Storage::disk('public')->delete($book->file_path);
+        }
+
         $book->delete();
         return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
     }
