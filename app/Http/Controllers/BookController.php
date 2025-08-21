@@ -114,4 +114,8 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
     }
+    public function show(Book $book)
+    {
+        return view('booklist.show', ['title' => $book->title, 'book' => $book]);
+    }
 }

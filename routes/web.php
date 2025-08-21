@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\PostDashboardController;
+use App\Models\Book;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostDashboardController;
 
 
 // Route::get('/dashboard', function () {
@@ -58,9 +59,10 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 });
 
 Route::get('/books', function () {
-    return view('books', ['title' => 'Uploaded Books by the Community']);
+    $books = Book::with('author')->latest()->get();
+    return view('books', ['title' => 'Uploaded Books by the Community',   'books' => $books]);
 });
-
+Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
 Route::get('/project', function () {
     return view('project', ['title' => 'Project']);
 });
@@ -94,7 +96,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/my-book', [BookController::class, 'store'])->name('books.store');
 
     // Read 
-    Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
+    //Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
 
     // Update
     Route::get('/my-book/{book:slug}/edit', [BookController::class, 'edit'])->name('books.edit');
