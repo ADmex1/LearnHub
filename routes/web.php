@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\PostDashboardController;
 use App\Models\Post;
 use App\Models\User;
@@ -83,8 +84,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/my-blog/{post:slug}', [PostDashboardController::class, 'update']);
     //Delete
     Route::delete('/my-blog/{post:slug}', [PostDashboardController::class, 'destroy']);
-    Route::post('/postimage', [PostDashboardController::class, 'postimage']);
 });
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/my-book', [BookController::class, 'index'])->name('books.index');
+    //Create
+    Route::get('/my-book/create', [BookController::class, 'create'])->name('books.create');
+    Route::post('/my-book', [BookController::class, 'store'])->name('books.store');
+
+    // Read 
+    Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
+
+    // Update
+    Route::get('/my-book/{book:slug}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::patch('/my-book/{book:slug}', [BookController::class, 'update'])->name('books.update');
+
+    // Delete
+    Route::delete('/my-book/{book:slug}', [BookController::class, 'destroy'])->name('books.destroy');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

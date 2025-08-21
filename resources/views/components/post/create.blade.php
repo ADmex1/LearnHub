@@ -8,29 +8,45 @@
     @endpush
 
     <!-- Modal body -->
-    <div id="uploadBox" class="flex items-center justify-center w-full">
-        <label for="postimage"
-            class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600">
+    {{-- Image Modal Drafted --}}
+    {{-- 
+    <form action="/my-blog" method="POST" id="post-form" enctype="multipart/form-data">
+        <div id="uploadBox" class="flex items-center justify-center w-full">
+            <label for="postimage"
+                class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600 relative overflow-hidden">
 
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
-                </svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span class="font-semibold">Click to upload</span> or drag and drop
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG, WEBP (max 6MB)</p>
-            </div>
+                <!-- Default upload content -->
+                <div id="upload-content" class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
+                    </svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span class="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG, WEBP (max 6MB)</p>
+                </div>
 
-            <input id="postimage" name="postimage" type="file" class="hidden" accept="image/*" />
-        </label>
-    </div>
+                <!-- Image preview (hidden by default) -->
+                <img id="postimage-preview" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden"
+                    alt="Preview" />
 
-    <div id="previewWrapper" class="hidden mt-4">
-        <img id="postimage-preview" class="max-h-48 mx-auto rounded-lg border" alt="Preview" />
-    </div>
+                <!-- Change image overlay (hidden by default) -->
+                <div id="change-overlay"
+                    class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg hidden hover:bg-opacity-60 transition-all duration-200">
+                    <div class="text-center">
+                        <svg class="w-8 h-8 mx-auto mb-2 text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p class="text-sm text-white font-medium">Click to change image</p>
+                    </div>
+                </div>
 
+            </label>
+            <input id="postimage" name="postimage" type="file" class="filepond " accept="image/*" />
+        </div> --}}
     <form action="/my-blog" method="POST" id="post-form" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
@@ -80,30 +96,41 @@
                 Cancel
             </a>
         </div>
-
     </form>
     </div>
+
     @push('script')
-        <script>
+        {{-- <script>
             const input = document.getElementById('postimage');
-            const previewWrapper = document.getElementById('previewWrapper');
             const preview = document.getElementById('postimage-preview');
+            const uploadContent = document.getElementById('upload-content');
+            const changeOverlay = document.getElementById('change-overlay');
 
             input.addEventListener("change", () => {
                 const file = input.files[0];
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = (e) => {
+                        // Set preview image
                         preview.src = e.target.result;
-                        previewWrapper.classList.remove('hidden');
-                    }
+
+                        // Hide the "upload" placeholder
+                        uploadContent.classList.add("hidden");
+
+                        // Show the preview + overlay
+                        preview.classList.remove("hidden");
+                        changeOverlay.classList.remove("hidden");
+                    };
                     reader.readAsDataURL(file);
                 } else {
+                    // Reset to default state if no file
                     preview.src = "";
-                    previewWrapper.classList.add('hidden');
+                    preview.classList.add("hidden");
+                    changeOverlay.classList.add("hidden");
+                    uploadContent.classList.remove("hidden");
                 }
             });
-        </script>
+        </script> --}}
         <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
@@ -117,6 +144,18 @@
         </script>
 
         <script>
+            // // Init FilePond
+            // FilePond.registerPlugin(
+            //     FilePondPluginImagePreview,
+            //     FilePondPluginFileValidateSize,
+            //     FilePondPluginFileValidateType
+            // );
+
+            // FilePond.create(document.querySelector('#postimage'), {
+            //     acceptedFileTypes: ['image/png', 'image/jpeg', 'image/webp'],
+            //     maxFileSize: '6MB',
+            //     credits: false
+            // });
             // Highlight.js init
             hljs.configure({
                 languages: ['javascript', 'php', 'html', 'css'] // add whatever you need
@@ -179,7 +218,7 @@
                 theme: 'snow',
                 modules: {
                     toolbar: toolbarOptions,
-                    syntax: true // ✅ enable syntax highlighting
+                    syntax: true
                 },
                 placeholder: 'Write the content here'
             });
@@ -197,22 +236,6 @@
                 const content = quillEditor.children[0].innerHTML;
                 postContent.value = content;
                 this.submit();
-            });
-        </script>
-        <script>
-            // ✅ FilePond Setup
-            FilePond.registerPlugin(
-                FilePondPluginImagePreview,
-                FilePondPluginFileValidateSize,
-                FilePondPluginFileValidateType
-            );
-
-            const pond = FilePond.create(document.querySelector('#postimage'), {
-                acceptedFileTypes: ['image/png', 'image/jpeg', 'image/webp'],
-                maxFileSize: '6MB',
-                instantUpload: false,
-                credits: false,
-                labelIdle: 'Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
             });
         </script>
     @endpush

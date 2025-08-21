@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub Beta</title>
+    @vite('resources/css/app.css')
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @stack('style')
+</head>
+
+<body class="h-full">
+    <div class="min-h-full">
+        <x-navbar />
+        <main class="px-4 py-6">
+            @yield('content')
+        </main>
+    </div>
+
+    <footer class="bg-gray-900 text-white px-8 py-4 flex items-center justify-between shadow-md">
+        <div class="container mx-auto text-center text-sm">
+            &copy; {{ date('Y') }} {{ config('app.name', 'MySite') }} Beta. All rights reserved.
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    @stack('script')
+</body>
+
+</html>

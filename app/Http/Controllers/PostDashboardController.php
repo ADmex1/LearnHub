@@ -39,21 +39,21 @@ class PostDashboardController extends Controller
             [
                 'title' => 'required|unique:posts',
                 'category_id' => 'required',
-                'content' => 'required|min:30',
-                'postimage' => 'nullable|image|mimes:jpg,jpeg,webp,png|max:6144'
+                'content' => 'required|min:30'
+                // 'postimage' => 'nullable|image|mimes:jpg,jpeg,webp,png|max:6144'
             ]
         );
-        $path = null;
-        if ($request->hasFile('postimage')) {
-            $path =  $request->file('postimage')->store('post', 'public');
-        }
+        // $path = null;
+        // if ($request->hasFile('postimage')) {
+        //     $path =  $request->file('postimage')->store('post', 'public');
+        // }
         Post::create([
             'title' => $request->title,
             'author_id' => Auth::user()->id,
             'category_id' => $request->category_id,
             'slug' => Str::slug($request->title),
             'content' => $request->content,
-            'postimage' => $path
+            // 'postimage' => $path
         ]);
         return redirect('/my-blog');
     }
@@ -87,34 +87,39 @@ class PostDashboardController extends Controller
         $request->validate([
             'title' => 'required|unique:posts,title,' . $post->id,
             'category_id' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            // 'postimage'   => 'nullable|image|mimes:jpg,jpeg,webp,png|max:6144',
         ]);
-
+        // $path = null;
+        // if ($request->hasFile('postimage')) {
+        //     $path = $request->file('postimage')->store('post', 'public');
+        // }
         $post->update([
             'title' => $request->title,
             'author_id' => Auth::user()->id,
             'category_id' => $request->category_id,
             'slug' => Str::slug($request->title),
             'content' => $request->content,
+            //   'postimage' => $path
         ]);
-        if ($request->hasFile('postimage')) {
-            if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
-                Storage::disk('public')->delete($post->postimage);
-            }
-            $data['postimage'] = $request->file('postimage')->store('post', 'public');
-        }
-        $post->update($data);
+        // if ($request->hasFile('postimage')) {
+        //     if ($post->postimage && Storage::disk('public')->exists($post->postimage)) {
+        //         Storage::disk('public')->delete($post->postimage);
+        //     }
+        //     $data['postimage'] = $request->file('postimage')->store('post', 'public');
+        // }
+        $post->update();
 
         return redirect('/my-blog')->with(['{success}' => 'Your post has been Updated!']);
     }
 
-    public function postimage(Request $request)
-    {
-        if ($request->hasFile('postimage')) {
-            $path =  $request->file('postimage')->store('post', 'public');
-        }
-        return $path;
-    }
+    // public function postimage(Request $request)
+    // {
+    //     if ($request->hasFile('postimage')) {
+    //         $path =  $request->file('postimage')->store('post', 'public');
+    //     }
+    //     return $path;
+    // }
     /**
      * Remove the specified resource from storage.
      */
