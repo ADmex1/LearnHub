@@ -59,7 +59,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 });
 
 Route::get('/books', function () {
-    $books = Book::with('author')->latest()->get();
+    $books = Book::with('author', 'category')->latest()->paginate(5);
     return view('books', ['title' => 'Uploaded Books by the Community',   'books' => $books]);
 });
 Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
