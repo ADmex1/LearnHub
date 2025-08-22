@@ -15,7 +15,6 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $books = Book::where('author_id', Auth::id())->with('category')->latest();
-
         if ($request->has('keyword')) {
             $books->where('title', 'like', '%' . $request->keyword . '%');
         }
