@@ -27,6 +27,7 @@
                     class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg z-50">
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
                     <a href="/my-blog" class="block px-4 py-2 hover:bg-gray-100">Your Posts</a>
+                    <a href="/my-book" class="block px-4 py-2 hover:bg-gray-100">Your Books</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">

@@ -62,7 +62,14 @@ Route::get('/books', function () {
     $books = Book::with('author', 'category')->latest()->paginate(5);
     return view('books', ['title' => 'Uploaded Books by the Community',   'books' => $books]);
 });
-Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
+
+Route::get('/book/{book:slug}', function (Book $book) {
+    return view('book', [
+        'title' => $book->title,
+        'book' => $book
+    ]);
+});
+
 Route::get('/project', function () {
     return view('project', ['title' => 'Project']);
 });
@@ -96,7 +103,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/my-book', [BookController::class, 'store'])->name('books.store');
 
     // Read 
-    //Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
+    Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
 
     // Update
     Route::get('/my-book/{book:slug}/edit', [BookController::class, 'edit'])->name('books.edit');

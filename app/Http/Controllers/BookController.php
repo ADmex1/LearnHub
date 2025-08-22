@@ -30,7 +30,7 @@ class BookController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('booklist.create', [
+        echo view('booklist.create', [
             'title' => 'Add New Book',
             'categories' => $categories,
         ]);
