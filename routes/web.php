@@ -62,10 +62,6 @@ Route::get('/books', function () {
     $books = Book::with('author', 'category')->latest();
     $books = Book::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
     return view('books', ['title' => 'Uploaded Books by the Community',   'books' => $books]);
-
-    // $posts = Post::with(['author', 'category'])->latest();
-    // $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
-    // return view('home', ['title' => 'Welcome to Community Hub',  'posts' => $posts,]);
 });
 
 Route::get('/book/{book:slug}', function (Book $book) {
