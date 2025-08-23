@@ -49,7 +49,7 @@ class BookController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('books', $filename, 'public');
+            $filePath = $file->storeAs('books', $filename, config('filesystems.default_public_disk'));
         }
 
         Book::create([
@@ -89,12 +89,12 @@ class BookController extends Controller
         $data['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('file')) {
-            if ($book->file_path && Storage::disk('public')->exists($book->file_path)) {
-                Storage::disk('public')->delete($book->file_path);
+            if ($book->file_path && Storage::disk(config('filesystems.default_public_disk'))->exists($book->file_path)) {
+                Storage::disk(config('filesystems.default_public_disk'))->delete($book->file_path);
             }
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('books', $filename, 'public');
+            $filePath = $file->storeAs('books', $filename, config('filesystems.default_public_disk'));
             $data['file_path'] = $filePath;
         }
 
@@ -106,8 +106,8 @@ class BookController extends Controller
     /** Delete book */
     public function destroy(Book $book)
     {
-        if ($book->file_path && Storage::disk('public')->exists($book->file_path)) {
-            Storage::disk('public')->delete($book->file_path);
+        if ($book->file_path && Storage::disk(config('filesystems.default_public_disk'))->exists($book->file_path)) {
+            Storage::disk(config('filesystems.default_public_disk'))->delete($book->file_path);
         }
 
         $book->delete();
