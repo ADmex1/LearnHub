@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->unsignedBigInteger('author_id')->constrained(table: 'users', indexName: 'book_author_id');
             $table->text('description');
-            $table->string('book');
+            $table->string('file_path');
             $table->unsignedBigInteger('category_id')->constrained(table: 'categories', indexName: 'book_category_id')->cascadeOnDelete();
             $table->timestamps();
         });
