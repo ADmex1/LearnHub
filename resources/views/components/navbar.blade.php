@@ -7,7 +7,7 @@
         <x-my-nav-link href="/posts" :current="request()->is('posts')" class="text-white hover:text-cyan-400">Community
             Blogs</x-my-nav-link>
         <x-my-nav-link href="/books" :current="request()->is('books')" class="text-white hover:text-cyan-400">Books</x-my-nav-link>
-        {{-- <x-my-nav-link href="/project" :current="request()->is('project')" class="text-white hover:text-cyan-400">Projects</x-my-nav-link> --}}
+        <x-my-nav-link href="/project" :current="request()->is('project')" class="text-white hover:text-cyan-400">Projects</x-my-nav-link>
         <x-my-nav-link href="/about" :current="request()->is('about')" class="text-white hover:text-cyan-400">About</x-my-nav-link>
     </div>
     <div class="hidden md:flex items-center space-x-4">
@@ -61,6 +61,8 @@
                 class="block text-gray-200 hover:text-cyan-400 font-medium">Community Blogs</x-my-nav-link>
             <x-my-nav-link href="/books" :current="request()->is('books')"
                 class="block text-gray-200 hover:text-cyan-400 font-medium">Books</x-my-nav-link>
+            <x-my-nav-link href="/project" :current="request()->is('project')"
+                class="block text-gray-200 hover:text-cyan-400 font-medium">projects</x-my-nav-link>
             <x-my-nav-link href="/about" :current="request()->is('about')"
                 class="block text-gray-200 hover:text-cyan-400 font-medium">About</x-my-nav-link>
 

@@ -72,7 +72,7 @@ Route::get('/book/{book:slug}', function (Book $book) {
 });
 
 Route::get('/project', function () {
-    return view('project', ['title' => 'Project']);
+    return view('project');
 });
 
 Route::get('/:3', function () {
