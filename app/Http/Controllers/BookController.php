@@ -117,4 +117,12 @@ class BookController extends Controller
     {
         return view('booklist.show', ['title' => $book->title, 'book' => $book]);
     }
+    public function bookpreview(Book $book)
+    {
+        $filepath = storage_path('app/public/' . $book->file_path);
+        if (!file_exists($filepath)) {
+            abort(404);
+        }
+        return response()->file($filepath);
+    }
 }

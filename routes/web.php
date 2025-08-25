@@ -105,7 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Read 
     Route::get('/my-book/{book:slug}', [BookController::class, 'show'])->name('books.show');
-
+    Route::get('/my-book/preview/{book:slug}', [BookController::class, 'bookpreview'])->name('book.preview');
     // Update
     Route::get('/my-book/{book:slug}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::patch('/my-book/{book:slug}', [BookController::class, 'update'])->name('books.update');

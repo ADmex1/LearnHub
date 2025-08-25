@@ -143,5 +143,4 @@
             {{ $posts->links() }}
         </div>
     </div>
-
 </x-layout>
