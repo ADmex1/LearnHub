@@ -4,7 +4,7 @@
             Recent Uploads
         </h2>
 
-        @if ($posts->count() > 0)
+        @if ($posts->count() > 0 or $books->count() > 0)
             <div class="flex justify-center">
                 <div class="space-y-4 w-full max-w-2xl">
                     @foreach ($posts->take(3) as $recentPost)
@@ -37,6 +37,23 @@
                     1 0 010-1.414z" clip-rule="evenodd"></path>
                                 </svg>
                             </a>
+                        </article>
+                    @endforeach
+                    @foreach ($books->take(2) as $recentBook)
+                        <article class="border-b border-gray-300 dark:border-gray-700 pb-3">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                    <a href="/my-book/{{ $recentBook->slug }}" class="hover:text-indigo-500">
+                                        {{ $recentBook->title }}
+                                    </a>
+                                </h3>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $recentBook->created_at->diffForHumans() }}
+                                </span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                <span class="font-medium">{{ $recentBook->author->name }}</span> just uploaded a Book
+                            </p>
                         </article>
                     @endforeach
                 </div>

@@ -16,7 +16,9 @@ use App\Http\Controllers\PostDashboardController;
 Route::get('/', function () {
     $posts = Post::with(['author', 'category'])->latest();
     $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
-    return view('home', ['title' => 'Welcome to Community Hub',  'posts' => $posts,]);
+    $books = Book::with('author', 'category')->latest();
+    $books = Book::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
+    return view('home', ['title' => 'Welcome to Community Hub',  'posts' => $posts, 'books' => $books]);
 });
 
 Route::get('/about', function () {
