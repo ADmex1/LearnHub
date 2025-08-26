@@ -7,6 +7,7 @@ This website were created for my study of basic php and laravel 12 Learning, thi
 -  **Book Uploads** – Upload and showcase books for others to read or download.  
 -  **Recent Uploads Section** – Displays the latest uploads from users.  
 -  **User Profiles** – Customizeable Profile. 
+-  **User Verification** - Verify new user from Email verification.
 
 ---
 
