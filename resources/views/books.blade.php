@@ -43,7 +43,7 @@
                     </div>
                     <h2
                         class="mb-3 text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition">
-                        <a href="/book/{{ $book->slug }}">{{ $book->title }}</a>
+                        <a href="/my-book/{{ $book->slug }}">{{ $book->title }}</a>
                     </h2>
 
                     <p class="mb-5 text-sm text-gray-600 dark:text-gray-400">
@@ -58,7 +58,7 @@
                                 {{ $book->author->name }}
                             </span>
                         </a>
-                        <a href="/book/{{ $book->slug }}"
+                        <a href="/my-book/{{ $book->slug }}"
                             class="flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                             Read more
                             <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
