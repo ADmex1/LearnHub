@@ -43,7 +43,7 @@
                         <article class="border-b border-gray-300 dark:border-gray-700 pb-3">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                                    <a href="/my-book/{{ $recentBook->slug }}" class="hover:text-indigo-500">
+                                    <a href="/my-book/preview/{{ $recentBook->slug }}" class="hover:text-indigo-500">
                                         {{ $recentBook->title }}
                                     </a>
                                 </h3>

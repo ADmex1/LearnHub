@@ -66,11 +66,15 @@ Route::get('/books', function () {
     return view('books', ['title' => 'Uploaded Books by the Community',   'books' => $books]);
 });
 
-Route::get('/book/{book:slug}', function (Book $book) {
-    return view('book', [
-        'title' => $book->title,
-        'book' => $book
-    ]);
+Route::get('/home-book/{book:slug}', function (Book $book) {
+    return view(
+        //$book->title,
+        'book',
+        [
+            'title' => $book->title,
+            'book' => $book
+        ]
+    );
 });
 
 Route::get('/project', function () {
@@ -78,7 +82,7 @@ Route::get('/project', function () {
 });
 
 Route::get('/:3', function () {
-    return "Helllo :3";
+    return "Helllo :3 you found secret route";
 });
 
 
